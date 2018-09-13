@@ -79,6 +79,18 @@ namespace PiBootstrapper
                 MessageBox.Show("The passwords you have entered do not match.", "Error");
                 return;
             }
+
+            if (comboBox2.SelectedIndex == 0 && (textBox3.Text.Length < 8
+                || textBox3.Text.Length > 63))
+            {
+                MessageBox.Show("Password must be between 8 and 63 characters long.");
+                return;
+            }
+            else if (comboBox2.SelectedIndex == 1 && textBox3.Text.Length > 14)
+            {
+                MessageBox.Show("Password cannot exceed 14 characters in length.");
+                return;
+            }
         }
 
         private void closeButton_Click(object sender, EventArgs e)
