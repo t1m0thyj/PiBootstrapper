@@ -57,11 +57,13 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(16, 30);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(196, 21);
+            this.comboBox1.Size = new System.Drawing.Size(211, 21);
             this.comboBox1.TabIndex = 1;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -74,10 +76,14 @@
             // 
             // comboBox2
             // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "WPA/WPA2 Personal",
+            "WPA/WPA2 Enterprise"});
             this.comboBox2.Location = new System.Drawing.Point(16, 87);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(294, 21);
+            this.comboBox2.Size = new System.Drawing.Size(304, 21);
             this.comboBox2.TabIndex = 3;
             // 
             // label3
@@ -93,13 +99,14 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(16, 144);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(294, 20);
+            this.textBox1.Size = new System.Drawing.Size(304, 20);
             this.textBox1.TabIndex = 5;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 186);
+            this.label4.Location = new System.Drawing.Point(13, 187);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 6;
@@ -109,8 +116,9 @@
             // 
             this.textBox2.Location = new System.Drawing.Point(16, 203);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(294, 20);
+            this.textBox2.Size = new System.Drawing.Size(304, 20);
             this.textBox2.TabIndex = 7;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label5
             // 
@@ -125,13 +133,15 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(16, 265);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(294, 20);
+            this.textBox3.PasswordChar = '●';
+            this.textBox3.Size = new System.Drawing.Size(304, 20);
             this.textBox3.TabIndex = 9;
+            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(16, 304);
+            this.label6.Location = new System.Drawing.Point(12, 304);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(91, 13);
             this.label6.TabIndex = 10;
@@ -141,17 +151,20 @@
             // 
             this.textBox4.Location = new System.Drawing.Point(16, 320);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(294, 20);
+            this.textBox4.PasswordChar = '●';
+            this.textBox4.Size = new System.Drawing.Size(304, 20);
             this.textBox4.TabIndex = 11;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(235, 30);
+            this.refreshButton.Location = new System.Drawing.Point(245, 30);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(75, 23);
             this.refreshButton.TabIndex = 12;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
+            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // startButton
             // 
@@ -161,6 +174,7 @@
             this.startButton.TabIndex = 13;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.Click += new System.EventHandler(this.startButton_Click);
             // 
             // closeButton
             // 
@@ -171,6 +185,7 @@
             this.closeButton.TabIndex = 14;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
             // sshCheckBox
             // 
@@ -182,7 +197,7 @@
             this.sshCheckBox.Text = "Enable SSH (with default user \'pi\' and password \'raspberry\')";
             this.sshCheckBox.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // MainForm
             // 
             this.AcceptButton = this.startButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -206,8 +221,9 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Pi Bootstrapper";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
