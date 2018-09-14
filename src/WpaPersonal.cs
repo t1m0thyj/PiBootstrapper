@@ -33,5 +33,19 @@ namespace PiBootstrapper
             cs.Close();
             byte[] encrypted = ms.ToArray();
         }
+
+        public static string GetConfig(string networkName, string password)
+        {
+            List<string> config = new List<string>()
+            {
+                "network={",
+                "\tssid=\"" + networkName + "\"",
+                "\tpsk=\"" + password + "\"",
+                "\tkey_mgmt=WPA-PSK",
+                "}"
+            };
+
+            return String.Join("\n", config);
+        }
     }
 }

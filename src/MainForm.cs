@@ -21,7 +21,7 @@ namespace PiBootstrapper
         private void UpdateDriveList()
         {
             DriveInfo[] allDrives = DriveInfo.GetDrives();
-            comboBox1.Items.Clear();
+            driveComboBox.Items.Clear();
 
             foreach (DriveInfo d in allDrives)
             {
@@ -40,24 +40,56 @@ namespace PiBootstrapper
                     itemName = d.Name.TrimEnd('\\');
                 }
 
-                comboBox1.Items.Add(itemName);
+                driveComboBox.Items.Add(itemName);
 
                 if (d.VolumeLabel == "boot")
                 {
-                    comboBox1.SelectedItem = itemName;
+                    driveComboBox.SelectedItem = itemName;
                 }
             }
         }
 
-        private void EnsureNonEmpty()
+        private void UpdateGuiState()
         {
-            bool isEmpty = (comboBox1.SelectedIndex == -1
-                || textBox1.Text.Length == 0
-                || textBox2.Text.Length == 0
-                || textBox3.Text.Length == 0
-                || textBox4.Text.Length == 0);
+            userTextBox.Enabled = (driveComboBox.SelectedIndex == 1);
+
+            bool isEmpty = (driveComboBox.SelectedIndex == -1
+                || nameTextBox.Text.Length == 0
+                || userTextBox.Text.Length == 0
+                || passwordTextBox.Text.Length == 0
+                || passwordTextBox2.Text.Length == 0);
 
             startButton.Enabled = !isEmpty;
+        }
+
+        private void ConfigureImage(string bootDrive, string networkConfig, bool enableSsh)
+        {
+            string wpaSupplicantConf = Path.Combine(bootDrive, "wpa_supplicant.conf");
+            bool writeConfig = true;
+
+            if (File.Exists(wpaSupplicantConf))
+            {
+                DialogResult result = MessageBox.Show("The file /boot/wpa_supplicant.conf " +
+                    "already exists on the SD card. Are you sure you want to overwrite it?",
+                    "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                writeConfig = (result == DialogResult.Yes);
+            }
+
+            if (writeConfig)
+            {
+                string configText = "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n"
+                    + "update_config = 1\ncountry = US\n\n" + networkConfig + "\n";
+                File.WriteAllText(wpaSupplicantConf, configText);
+            }
+
+            if (enableSsh)
+            {
+                File.Create(Path.Combine(bootDrive, "ssh"));
+            }
+            else
+            {
+                File.Delete(Path.Combine(bootDrive, "ssh"));
+            }
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
@@ -67,30 +99,50 @@ namespace PiBootstrapper
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            string drive = comboBox1.GetItemText(comboBox1.SelectedItem).Substring(0, 2);
-            if (!Directory.Exists(Path.Combine(drive, "aardvarks")))
+            string bootDrive = driveComboBox.GetItemText(driveComboBox.SelectedItem).Substring(0, 2);
+
+            if (!File.Exists(Path.Combine(bootDrive, "kernel.img")))
             {
-                MessageBox.Show("aardvarks", "Error");
+                MessageBox.Show("The drive you have selected is not a Raspberry Pi SD card.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (textBox3.Text != textBox4.Text)
+            if (passwordTextBox.Text != passwordTextBox2.Text)
             {
                 MessageBox.Show("The passwords you have entered do not match.", "Error");
                 return;
             }
 
-            if (comboBox2.SelectedIndex == 0 && (textBox3.Text.Length < 8
-                || textBox3.Text.Length > 63))
+            if (typeComboBox.SelectedIndex == 0 && (passwordTextBox.Text.Length < 8
+                || passwordTextBox.Text.Length > 63))
             {
                 MessageBox.Show("Password must be between 8 and 63 characters long.");
                 return;
             }
-            else if (comboBox2.SelectedIndex == 1 && textBox3.Text.Length > 14)
+            else if (typeComboBox.SelectedIndex == 1 && passwordTextBox.Text.Length > 14)
             {
                 MessageBox.Show("Password cannot exceed 14 characters in length.");
                 return;
             }
+
+            string networkName = nameTextBox.Text;
+            string username = userTextBox.Text;
+            string password = passwordTextBox.Text;
+            string networkConfig;
+
+            if (typeComboBox.SelectedIndex == 0)
+            {
+                networkConfig = WpaPersonal.GetConfig(networkName, password);
+            }
+            else
+            {
+                networkConfig = WpaEnterprise.GetConfig(networkName, username, password);
+            }
+
+            ConfigureImage(bootDrive, networkConfig, sshCheckBox.Checked);
+
+            MessageBox.Show("SD card image has been configured successfully.", "Info");
         }
 
         private void closeButton_Click(object sender, EventArgs e)
@@ -98,38 +150,18 @@ namespace PiBootstrapper
             this.Close();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void formControl_Modified(object sender, EventArgs e)
         {
-            EnsureNonEmpty();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            EnsureNonEmpty();
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            EnsureNonEmpty();
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-            EnsureNonEmpty();
-        }
-
-        private void textBox4_TextChanged(object sender, EventArgs e)
-        {
-            EnsureNonEmpty();
+            UpdateGuiState();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             UpdateDriveList();
 
-            comboBox2.SelectedIndex = 0;
+            typeComboBox.SelectedIndex = 0;
 
-            EnsureNonEmpty();
+            UpdateGuiState();
         }
     }
 }

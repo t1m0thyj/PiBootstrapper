@@ -49,5 +49,24 @@ namespace PiBootstrapper
             byte[] outBytes = new[] { a, b, c, d }.SelectMany(BitConverter.GetBytes).ToArray();
             return BitConverter.ToString(outBytes).Replace("-", "").ToLower();
         }
+
+        public static string GetConfig(string networkName, string username, string password)
+        {
+            List<string> config = new List<string>()
+            {
+                "network = {",
+                "\tssid = \"" + networkName + "\"",
+                "\tscan_ssid=1",
+                "\tkey_mgmt=WPA-EAP",
+                "\teap=PEAP",
+                "\tidentity=\"" + username + "\"",
+                "\tpassword=hash:" + password,
+                "\tphase1=\"peaplabel=0\"",
+                "\tphase2=\"auth=MSCHAPV2\"",
+                "}"
+            };
+
+            return String.Join("\n", config);
+        }
     }
 }

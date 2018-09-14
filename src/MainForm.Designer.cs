@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.driveComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.typeComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.userTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.passwordTextBox2 = new System.Windows.Forms.TextBox();
             this.refreshButton = new System.Windows.Forms.Button();
             this.startButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
@@ -55,15 +55,15 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "SD Card Boot Partition";
             // 
-            // comboBox1
+            // driveComboBox
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(16, 30);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(211, 21);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.driveComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.driveComboBox.FormattingEnabled = true;
+            this.driveComboBox.Location = new System.Drawing.Point(16, 30);
+            this.driveComboBox.Name = "driveComboBox";
+            this.driveComboBox.Size = new System.Drawing.Size(211, 21);
+            this.driveComboBox.TabIndex = 1;
+            this.driveComboBox.SelectedIndexChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // label2
             // 
@@ -74,17 +74,18 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Wireless Network Type";
             // 
-            // comboBox2
+            // typeComboBox
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.typeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.typeComboBox.FormattingEnabled = true;
+            this.typeComboBox.Items.AddRange(new object[] {
             "WPA/WPA2 Personal",
             "WPA/WPA2 Enterprise"});
-            this.comboBox2.Location = new System.Drawing.Point(16, 87);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(304, 21);
-            this.comboBox2.TabIndex = 3;
+            this.typeComboBox.Location = new System.Drawing.Point(16, 87);
+            this.typeComboBox.Name = "typeComboBox";
+            this.typeComboBox.Size = new System.Drawing.Size(304, 21);
+            this.typeComboBox.TabIndex = 3;
+            this.typeComboBox.SelectedIndexChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // label3
             // 
@@ -95,13 +96,13 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Wireless Network Name";
             // 
-            // textBox1
+            // nameTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(16, 144);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(304, 20);
-            this.textBox1.TabIndex = 5;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.nameTextBox.Location = new System.Drawing.Point(16, 144);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(304, 20);
+            this.nameTextBox.TabIndex = 5;
+            this.nameTextBox.TextChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // label4
             // 
@@ -112,13 +113,13 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Username";
             // 
-            // textBox2
+            // userTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(16, 203);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(304, 20);
-            this.textBox2.TabIndex = 7;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.userTextBox.Location = new System.Drawing.Point(16, 203);
+            this.userTextBox.Name = "userTextBox";
+            this.userTextBox.Size = new System.Drawing.Size(304, 20);
+            this.userTextBox.TabIndex = 7;
+            this.userTextBox.TextChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // label5
             // 
@@ -129,14 +130,14 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "Password";
             // 
-            // textBox3
+            // passwordTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(16, 265);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.PasswordChar = '●';
-            this.textBox3.Size = new System.Drawing.Size(304, 20);
-            this.textBox3.TabIndex = 9;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.passwordTextBox.Location = new System.Drawing.Point(16, 265);
+            this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.PasswordChar = '●';
+            this.passwordTextBox.Size = new System.Drawing.Size(304, 20);
+            this.passwordTextBox.TabIndex = 9;
+            this.passwordTextBox.TextChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // label6
             // 
@@ -147,14 +148,14 @@
             this.label6.TabIndex = 10;
             this.label6.Text = "Confirm Password";
             // 
-            // textBox4
+            // passwordTextBox2
             // 
-            this.textBox4.Location = new System.Drawing.Point(16, 320);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.PasswordChar = '●';
-            this.textBox4.Size = new System.Drawing.Size(304, 20);
-            this.textBox4.TabIndex = 11;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.passwordTextBox2.Location = new System.Drawing.Point(16, 320);
+            this.passwordTextBox2.Name = "passwordTextBox2";
+            this.passwordTextBox2.PasswordChar = '●';
+            this.passwordTextBox2.Size = new System.Drawing.Size(304, 20);
+            this.passwordTextBox2.TabIndex = 11;
+            this.passwordTextBox2.TextChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // refreshButton
             // 
@@ -208,17 +209,17 @@
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.refreshButton);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.passwordTextBox2);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.userTextBox);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.typeComboBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.driveComboBox);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -232,17 +233,17 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox driveComboBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox typeComboBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox userTextBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox passwordTextBox2;
         private System.Windows.Forms.Button refreshButton;
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button closeButton;

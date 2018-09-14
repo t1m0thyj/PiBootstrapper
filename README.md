@@ -1,2 +1,2 @@
 # PiBootstrapper
-Bootstrapper that customizes Raspbian SD card image before first boot
+Windows app to configure Raspbian SD card image before first boot
