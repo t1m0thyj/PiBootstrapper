@@ -43,8 +43,9 @@ namespace PiBootstrapper
             {
                 "network={",
                 "\tssid=\"" + networkName + "\"",
-                "\tpsk=" + ComputeHash(password, networkName),
+                "\tscan_ssid=1",
                 "\tkey_mgmt=WPA-PSK",
+                "\tpsk=" + ComputeHash(password, networkName),
                 "}"
             };
 

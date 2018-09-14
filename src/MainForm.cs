@@ -30,21 +30,23 @@ namespace PiBootstrapper
                     continue;
                 }
 
-                string itemName;
-                if (d.VolumeLabel.Length > 0)
+                try
                 {
-                    itemName = d.Name.TrimEnd('\\') + " (" + d.VolumeLabel + ")";
-                }
-                else
-                {
-                    itemName = d.Name.TrimEnd('\\');
-                }
+                    string itemName = d.Name;
+                    if (d.VolumeLabel.Length > 0)
+                    {
+                        itemName += " (" + d.VolumeLabel + ")";
+                    }
 
-                driveComboBox.Items.Add(itemName);
+                    driveComboBox.Items.Add(itemName);
 
-                if (d.VolumeLabel == "boot")
+                    if (d.VolumeLabel == "boot")
+                    {
+                        driveComboBox.SelectedItem = itemName;
+                    }
+                }
+                catch (IOException)
                 {
-                    driveComboBox.SelectedItem = itemName;
                 }
             }
         }
@@ -78,7 +80,7 @@ namespace PiBootstrapper
             if (writeConfig)
             {
                 string configText = "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n"
-                    + "update_config = 1\ncountry = US\n\n" + networkConfig + "\n";
+                    + "update_config=1\ncountry=US\n\n" + networkConfig + "\n";
                 File.WriteAllText(wpaSupplicantConf, configText);
             }
 

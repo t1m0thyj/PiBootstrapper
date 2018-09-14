@@ -54,8 +54,8 @@ namespace PiBootstrapper
         {
             List<string> config = new List<string>()
             {
-                "network = {",
-                "\tssid = \"" + networkName + "\"",
+                "network={",
+                "\tssid=\"" + networkName + "\"",
                 "\tscan_ssid=1",
                 "\tkey_mgmt=WPA-EAP",
                 "\teap=PEAP",
