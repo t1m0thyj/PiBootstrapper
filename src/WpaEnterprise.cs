@@ -10,9 +10,9 @@ namespace PiBootstrapper
     {
         private static string ComputeHash(string password)
         {
-            // Code from https://rosettacode.org/wiki/MD4#C.23
+            // Code based on https://rosettacode.org/wiki/MD4#C.23
             // get padded uints from bytes
-            List<byte> bytes = Encoding.ASCII.GetBytes(password).ToList();
+            List<byte> bytes = Encoding.Unicode.GetBytes(password).ToList();
             uint bitCount = (uint)(bytes.Count) * 8;
             bytes.Add(128);
             while (bytes.Count % 64 != 56) bytes.Add(0);
@@ -60,7 +60,7 @@ namespace PiBootstrapper
                 "\tkey_mgmt=WPA-EAP",
                 "\teap=PEAP",
                 "\tidentity=\"" + username + "\"",
-                "\tpassword=hash:" + password,
+                "\tpassword=hash:" + ComputeHash(password),
                 "\tphase1=\"peaplabel=0\"",
                 "\tphase2=\"auth=MSCHAPV2\"",
                 "}"

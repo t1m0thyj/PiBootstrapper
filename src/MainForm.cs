@@ -51,7 +51,7 @@ namespace PiBootstrapper
 
         private void UpdateGuiState()
         {
-            userTextBox.Enabled = (driveComboBox.SelectedIndex == 1);
+            userTextBox.Enabled = (typeComboBox.SelectedIndex == 1);
 
             bool isEmpty = (driveComboBox.SelectedIndex == -1
                 || nameTextBox.Text.Length == 0

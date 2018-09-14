@@ -3,35 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 using System.Security.Cryptography;
 
 namespace PiBootstrapper
 {
     class WpaPersonal
     {
-        private static string ComputeHash(string password, string salt)
+        private static string ComputeHash(string password, string networkName)
         {
-            // Setup the password generator
-            byte[] salt = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7 };
-            Rfc2898DeriveBytes pwdGen = new Rfc2898DeriveBytes("P@$$w0rd", salt, 1000);
+            // Code based on https://stackoverflow.com/a/28631507/5504760
+            Rfc2898DeriveBytes pbkdf2;
+            byte[] saltBytes = Encoding.ASCII.GetBytes(networkName);
 
-            // generate an RC2 key
-            byte[] key = pwdGen.GetBytes(16);
-            byte[] iv = pwdGen.GetBytes(8);
+            //little magic here
+            //Rfc2898DeriveBytes class has restriction of salt size to >= 8
+            //but rfc2898 not (see http://www.ietf.org/rfc/rfc2898.txt)
+            //we use Reflection to setup private field to avoid this restriction
 
-            // setup an RC2 object to encrypt with the derived key
-            RC2CryptoServiceProvider rc2 = new RC2CryptoServiceProvider();
-            rc2.Key = key;
-            rc2.IV = iv;
+            if (saltBytes.Length >= 8)
+                pbkdf2 = new Rfc2898DeriveBytes(password, saltBytes, 4096);
+            else
+            {
+                //use dummy salt here, we replace it later vie reflection
+                pbkdf2 = new Rfc2898DeriveBytes(password, new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 }, 4096);
 
-            // now encrypt with it
-            byte[] plaintext = Encoding.UTF8.GetBytes("Message");
-            MemoryStream ms = new MemoryStream();
-            CryptoStream cs = new CryptoStream(ms, rc2.CreateEncryptor(), CryptoStreamMode.Write);
+                var saltField = typeof(Rfc2898DeriveBytes).GetField("m_salt", BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance);
+                saltField.SetValue(pbkdf2, saltBytes);
+            }
 
-            cs.Write(plaintext, 0, plaintext.Length);
-            cs.Close();
-            byte[] encrypted = ms.ToArray();
+            //get 256 bit PMK key
+            byte[] outBytes = pbkdf2.GetBytes(32);
+            return BitConverter.ToString(outBytes).Replace("-", "").ToLower();
         }
 
         public static string GetConfig(string networkName, string password)
@@ -40,7 +43,7 @@ namespace PiBootstrapper
             {
                 "network={",
                 "\tssid=\"" + networkName + "\"",
-                "\tpsk=\"" + password + "\"",
+                "\tpsk=" + ComputeHash(password, networkName),
                 "\tkey_mgmt=WPA-PSK",
                 "}"
             };
