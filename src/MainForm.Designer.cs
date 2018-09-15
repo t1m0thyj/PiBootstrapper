@@ -44,6 +44,7 @@
             this.startButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.sshCheckBox = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -62,7 +63,7 @@
             this.driveComboBox.Location = new System.Drawing.Point(16, 30);
             this.driveComboBox.Name = "driveComboBox";
             this.driveComboBox.Size = new System.Drawing.Size(211, 21);
-            this.driveComboBox.TabIndex = 1;
+            this.driveComboBox.TabIndex = 0;
             this.driveComboBox.SelectedIndexChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // label2
@@ -81,16 +82,16 @@
             this.typeComboBox.Items.AddRange(new object[] {
             "WPA/WPA2 Personal",
             "WPA/WPA2 Enterprise"});
-            this.typeComboBox.Location = new System.Drawing.Point(16, 87);
+            this.typeComboBox.Location = new System.Drawing.Point(16, 88);
             this.typeComboBox.Name = "typeComboBox";
             this.typeComboBox.Size = new System.Drawing.Size(304, 21);
-            this.typeComboBox.TabIndex = 3;
+            this.typeComboBox.TabIndex = 2;
             this.typeComboBox.SelectedIndexChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 128);
+            this.label3.Location = new System.Drawing.Point(12, 129);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(121, 13);
             this.label3.TabIndex = 4;
@@ -98,10 +99,10 @@
             // 
             // nameTextBox
             // 
-            this.nameTextBox.Location = new System.Drawing.Point(16, 144);
+            this.nameTextBox.Location = new System.Drawing.Point(16, 146);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(304, 20);
-            this.nameTextBox.TabIndex = 5;
+            this.nameTextBox.TabIndex = 3;
             this.nameTextBox.TextChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // label4
@@ -115,16 +116,16 @@
             // 
             // userTextBox
             // 
-            this.userTextBox.Location = new System.Drawing.Point(16, 203);
+            this.userTextBox.Location = new System.Drawing.Point(16, 204);
             this.userTextBox.Name = "userTextBox";
             this.userTextBox.Size = new System.Drawing.Size(304, 20);
-            this.userTextBox.TabIndex = 7;
+            this.userTextBox.TabIndex = 4;
             this.userTextBox.TextChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(13, 249);
+            this.label5.Location = new System.Drawing.Point(13, 245);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 8;
@@ -132,17 +133,17 @@
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(16, 265);
+            this.passwordTextBox.Location = new System.Drawing.Point(16, 262);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.PasswordChar = '●';
             this.passwordTextBox.Size = new System.Drawing.Size(304, 20);
-            this.passwordTextBox.TabIndex = 9;
+            this.passwordTextBox.TabIndex = 5;
             this.passwordTextBox.TextChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 304);
+            this.label6.Location = new System.Drawing.Point(13, 303);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(91, 13);
             this.label6.TabIndex = 10;
@@ -154,25 +155,25 @@
             this.passwordTextBox2.Name = "passwordTextBox2";
             this.passwordTextBox2.PasswordChar = '●';
             this.passwordTextBox2.Size = new System.Drawing.Size(304, 20);
-            this.passwordTextBox2.TabIndex = 11;
+            this.passwordTextBox2.TabIndex = 6;
             this.passwordTextBox2.TextChanged += new System.EventHandler(this.formControl_Modified);
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(245, 30);
+            this.refreshButton.Location = new System.Drawing.Point(245, 29);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(75, 23);
-            this.refreshButton.TabIndex = 12;
+            this.refreshButton.TabIndex = 1;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(137, 396);
+            this.startButton.Location = new System.Drawing.Point(145, 397);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(75, 23);
-            this.startButton.TabIndex = 13;
+            this.startButton.TabIndex = 8;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
             this.startButton.Click += new System.EventHandler(this.startButton_Click);
@@ -180,10 +181,10 @@
             // closeButton
             // 
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.closeButton.Location = new System.Drawing.Point(235, 396);
+            this.closeButton.Location = new System.Drawing.Point(240, 397);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(75, 23);
-            this.closeButton.TabIndex = 14;
+            this.closeButton.TabIndex = 9;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
@@ -194,9 +195,19 @@
             this.sshCheckBox.Location = new System.Drawing.Point(16, 361);
             this.sshCheckBox.Name = "sshCheckBox";
             this.sshCheckBox.Size = new System.Drawing.Size(304, 17);
-            this.sshCheckBox.TabIndex = 15;
+            this.sshCheckBox.TabIndex = 7;
             this.sshCheckBox.Text = "Enable SSH (with default user \'pi\' and password \'raspberry\')";
             this.sshCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Enabled = false;
+            this.label7.Location = new System.Drawing.Point(15, 402);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(78, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Version 2018.1";
             // 
             // MainForm
             // 
@@ -205,6 +216,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
             this.ClientSize = new System.Drawing.Size(344, 441);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.sshCheckBox);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.startButton);
@@ -248,6 +260,7 @@
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.CheckBox sshCheckBox;
+        private System.Windows.Forms.Label label7;
     }
 }
 

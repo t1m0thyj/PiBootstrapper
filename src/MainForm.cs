@@ -35,7 +35,7 @@ namespace PiBootstrapper
                     string itemName = d.Name;
                     if (d.VolumeLabel.Length > 0)
                     {
-                        itemName += " (" + d.VolumeLabel + ")";
+                        itemName += " - " + d.VolumeLabel;
                     }
 
                     driveComboBox.Items.Add(itemName);
