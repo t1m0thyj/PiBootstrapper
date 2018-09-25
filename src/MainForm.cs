@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 using System.IO;
 
 namespace PiBootstrapper
@@ -45,9 +46,7 @@ namespace PiBootstrapper
                         driveComboBox.SelectedItem = itemName;
                     }
                 }
-                catch (IOException)
-                {
-                }
+                catch (IOException) { }
             }
         }
 
@@ -79,8 +78,11 @@ namespace PiBootstrapper
 
             if (writeConfig)
             {
+                var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
+                string country = regionInfo.TwoLetterISORegionName;
+
                 string configText = "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n"
-                    + "update_config=1\ncountry=US\n\n" + networkConfig + "\n";
+                    + "update_config=1\ncountry=" + country + "\n\n" + networkConfig + "\n";
                 File.WriteAllText(wpaSupplicantConf, configText);
             }
 
@@ -101,30 +103,41 @@ namespace PiBootstrapper
 
         private void startButton_Click(object sender, EventArgs e)
         {
-            string bootDrive = driveComboBox.GetItemText(driveComboBox.SelectedItem).Substring(0, 2);
+            string bootDrive = driveComboBox.GetItemText(
+                driveComboBox.SelectedItem).Split(' ')[0].TrimEnd('\\');
+
+            if (!Directory.Exists(bootDrive))
+            {
+                MessageBox.Show("The drive you have selected is no longer accessible.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             if (!File.Exists(Path.Combine(bootDrive, "kernel.img")))
             {
-                MessageBox.Show("The drive you have selected is not a Raspberry Pi SD card.",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("The drive you have selected is not a Raspbian SD card.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (passwordTextBox.Text != passwordTextBox2.Text)
             {
-                MessageBox.Show("The passwords you have entered do not match.", "Error");
+                MessageBox.Show("The passwords you have entered do not match.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (typeComboBox.SelectedIndex == 0 && (passwordTextBox.Text.Length < 8
                 || passwordTextBox.Text.Length > 63))
             {
-                MessageBox.Show("Password must be between 8 and 63 characters long.");
+                MessageBox.Show("Password must be between 8 and 63 characters long.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             else if (typeComboBox.SelectedIndex == 1 && passwordTextBox.Text.Length > 14)
             {
-                MessageBox.Show("Password cannot exceed 14 characters in length.");
+                MessageBox.Show("Password cannot exceed 14 characters in length.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
