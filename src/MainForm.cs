@@ -56,7 +56,7 @@ namespace PiBootstrapper
 
             bool isEmpty = (driveComboBox.SelectedIndex == -1
                 || nameTextBox.Text.Length == 0
-                || userTextBox.Text.Length == 0
+                || (typeComboBox.SelectedIndex == 1 && userTextBox.Text.Length == 0)
                 || passwordTextBox.Text.Length == 0
                 || passwordTextBox2.Text.Length == 0);
 
