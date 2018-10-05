@@ -44,7 +44,7 @@
             this.startButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.sshCheckBox = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -199,15 +199,15 @@
             this.sshCheckBox.Text = "Enable SSH (with default user \'pi\' and password \'raspberry\')";
             this.sshCheckBox.UseVisualStyleBackColor = true;
             // 
-            // label7
+            // versionLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Enabled = false;
-            this.label7.Location = new System.Drawing.Point(15, 402);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(78, 13);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Version 2018.1";
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.Enabled = false;
+            this.versionLabel.Location = new System.Drawing.Point(15, 402);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(78, 13);
+            this.versionLabel.TabIndex = 11;
+            this.versionLabel.Text = "Version";
             // 
             // MainForm
             // 
@@ -216,7 +216,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
             this.ClientSize = new System.Drawing.Size(344, 441);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.sshCheckBox);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.startButton);
@@ -260,7 +260,7 @@
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.CheckBox sshCheckBox;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label versionLabel;
     }
 }
 

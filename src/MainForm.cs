@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 
 namespace PiBootstrapper
 {
@@ -79,10 +80,10 @@ namespace PiBootstrapper
             if (writeConfig)
             {
                 var regionInfo = new RegionInfo(CultureInfo.CurrentCulture.LCID);
-                string country = regionInfo.TwoLetterISORegionName;
+                string countryCode = regionInfo.TwoLetterISORegionName;
 
                 string configText = "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n"
-                    + "update_config=1\ncountry=" + country + "\n\n" + networkConfig + "\n";
+                    + "update_config=1\ncountry=" + countryCode + "\n\n" + networkConfig + "\n";
                 File.WriteAllText(wpaSupplicantConf, configText);
             }
 
@@ -172,10 +173,11 @@ namespace PiBootstrapper
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            UpdateDriveList();
-
+            string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            versionLabel.Text += " " + appVersion.TrimEnd('.', '0');
             typeComboBox.SelectedIndex = 0;
 
+            UpdateDriveList();
             UpdateGuiState();
         }
     }
