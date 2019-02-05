@@ -50,9 +50,15 @@ namespace PiBootstrapper
             return BitConverter.ToString(outBytes).Replace("-", "").ToLower();
         }
 
-        public static string GetConfig(string networkName, string username, string password)
+        public static string GetConfig(string networkName, string username, string password,
+            bool shouldEncrypt)
         {
-            List<string> config = new List<string>()
+            if (shouldEncrypt)
+            {
+                password = "hash:" + ComputeHash(password);
+            }
+
+            string[] config = new string[]
             {
                 "network={",
                 "\tssid=\"" + networkName + "\"",
@@ -60,13 +66,13 @@ namespace PiBootstrapper
                 "\tkey_mgmt=WPA-EAP",
                 "\teap=PEAP",
                 "\tidentity=\"" + username + "\"",
-                "\tpassword=hash:" + ComputeHash(password),
+                "\tpassword=" + password,
                 "\tphase1=\"peaplabel=0\"",
                 "\tphase2=\"auth=MSCHAPV2\"",
                 "}"
             };
 
-            return String.Join("\n", config);
+            return string.Join("\n", config);
         }
     }
 }

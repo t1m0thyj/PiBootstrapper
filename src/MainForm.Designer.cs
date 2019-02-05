@@ -41,10 +41,11 @@
             this.label6 = new System.Windows.Forms.Label();
             this.passwordTextBox2 = new System.Windows.Forms.TextBox();
             this.refreshButton = new System.Windows.Forms.Button();
-            this.startButton = new System.Windows.Forms.Button();
+            this.applyButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
             this.sshCheckBox = new System.Windows.Forms.CheckBox();
             this.versionLabel = new System.Windows.Forms.Label();
+            this.encryptCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -168,20 +169,20 @@
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
-            // startButton
+            // applyButton
             // 
-            this.startButton.Location = new System.Drawing.Point(145, 397);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(75, 23);
-            this.startButton.TabIndex = 8;
-            this.startButton.Text = "Start";
-            this.startButton.UseVisualStyleBackColor = true;
-            this.startButton.Click += new System.EventHandler(this.startButton_Click);
+            this.applyButton.Location = new System.Drawing.Point(145, 417);
+            this.applyButton.Name = "applyButton";
+            this.applyButton.Size = new System.Drawing.Size(75, 23);
+            this.applyButton.TabIndex = 8;
+            this.applyButton.Text = "Apply";
+            this.applyButton.UseVisualStyleBackColor = true;
+            this.applyButton.Click += new System.EventHandler(this.applyButton_Click);
             // 
             // closeButton
             // 
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.closeButton.Location = new System.Drawing.Point(240, 397);
+            this.closeButton.Location = new System.Drawing.Point(240, 417);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(75, 23);
             this.closeButton.TabIndex = 9;
@@ -192,7 +193,7 @@
             // sshCheckBox
             // 
             this.sshCheckBox.AutoSize = true;
-            this.sshCheckBox.Location = new System.Drawing.Point(16, 361);
+            this.sshCheckBox.Location = new System.Drawing.Point(16, 381);
             this.sshCheckBox.Name = "sshCheckBox";
             this.sshCheckBox.Size = new System.Drawing.Size(304, 17);
             this.sshCheckBox.TabIndex = 7;
@@ -203,23 +204,36 @@
             // 
             this.versionLabel.AutoSize = true;
             this.versionLabel.Enabled = false;
-            this.versionLabel.Location = new System.Drawing.Point(15, 402);
+            this.versionLabel.Location = new System.Drawing.Point(15, 422);
             this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(78, 13);
+            this.versionLabel.Size = new System.Drawing.Size(42, 13);
             this.versionLabel.TabIndex = 11;
             this.versionLabel.Text = "Version";
             // 
+            // encryptCheckBox
+            // 
+            this.encryptCheckBox.AutoSize = true;
+            this.encryptCheckBox.Checked = true;
+            this.encryptCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.encryptCheckBox.Location = new System.Drawing.Point(16, 361);
+            this.encryptCheckBox.Name = "encryptCheckBox";
+            this.encryptCheckBox.Size = new System.Drawing.Size(287, 17);
+            this.encryptCheckBox.TabIndex = 12;
+            this.encryptCheckBox.Text = "Don\'t store Wi-Fi password in plain text on Pi (encrypt it)";
+            this.encryptCheckBox.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
-            this.AcceptButton = this.startButton;
+            this.AcceptButton = this.applyButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(344, 441);
+            this.ClientSize = new System.Drawing.Size(344, 461);
+            this.Controls.Add(this.encryptCheckBox);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.sshCheckBox);
             this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.startButton);
+            this.Controls.Add(this.applyButton);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.passwordTextBox2);
             this.Controls.Add(this.label6);
@@ -235,6 +249,7 @@
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pi Bootstrapper";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
@@ -257,10 +272,11 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox passwordTextBox2;
         private System.Windows.Forms.Button refreshButton;
-        private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button applyButton;
         private System.Windows.Forms.Button closeButton;
         private System.Windows.Forms.CheckBox sshCheckBox;
         private System.Windows.Forms.Label versionLabel;
+        private System.Windows.Forms.CheckBox encryptCheckBox;
     }
 }
 

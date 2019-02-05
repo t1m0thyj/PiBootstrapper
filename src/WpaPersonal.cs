@@ -35,19 +35,24 @@ namespace PiBootstrapper
             return BitConverter.ToString(outBytes).Replace("-", "").ToLower();
         }
 
-        public static string GetConfig(string networkName, string password)
+        public static string GetConfig(string networkName, string password, bool shouldEncrypt)
         {
-            List<string> config = new List<string>()
+            if (shouldEncrypt)
+            {
+                password = ComputeHash(password, networkName);
+            }
+
+            string[] config = new string[]
             {
                 "network={",
                 "\tssid=\"" + networkName + "\"",
                 "\tscan_ssid=1",
                 "\tkey_mgmt=WPA-PSK",
-                "\tpsk=" + ComputeHash(password, networkName),
+                "\tpsk=" + password,
                 "}"
             };
 
-            return String.Join("\n", config);
+            return string.Join("\n", config);
         }
     }
 }
