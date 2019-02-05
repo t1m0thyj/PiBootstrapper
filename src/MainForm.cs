@@ -149,7 +149,7 @@ namespace PiBootstrapper
         {
             string bootDrive = driveComboBox.GetItemText(
                 driveComboBox.SelectedItem).Split(' ')[0].TrimEnd('\\');
-        
+
             if (!ValidateSettings(bootDrive))
             {
                 return;

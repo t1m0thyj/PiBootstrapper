@@ -57,6 +57,10 @@ namespace PiBootstrapper
             {
                 password = "hash:" + ComputeHash(password);
             }
+            else
+            {
+                password = '"' + password.Replace("\"", "\\\"") + '"';
+            }
 
             string[] config = new string[]
             {
